@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # Configuramos opciones de salida para el script
-set -o errexit  # Finaliza el script si un comando falla
-set -o pipefail # Finaliza el script si un comando falla en una tubería
-set -o nounset  # Finaliza el script si se usa una variable no declarada
+# set -o errexit  # Finaliza el script si un comando falla
+# set -o pipefail # Finaliza el script si un comando falla en una tubería
+# set -o nounset  # Finaliza el script si se usa una variable no declarada
 # set -o xtrace # Si quieres depurar
 
 # Función para manejar errores
