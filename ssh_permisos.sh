@@ -6,6 +6,13 @@ set -o pipefail # Finaliza el script si un comando falla en una tubería
 set -o nounset  # Finaliza el script si se usa una variable no declarada
 set -o xtrace # Si quieres depurar
 
+# Variables
+current_user=$USER
+home_dir="/home/$current_user"
+ssh_dir="$home_dir/.ssh"
+authorized_keys="$ssh_dir/authorized_keys"
+
+
 # Función para manejar errores
 function handle_error {
     if [ $? -ne 0 ]; then
