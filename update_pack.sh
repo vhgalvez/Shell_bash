@@ -15,8 +15,10 @@ log_file="report_update_pack.log"
 
 # Función para manejar errores
 function handle_error {
+    
     echo "$(date) - Error: $1 falló" >&2
     echo "$(date) - Error: $1 falló" >> "$log_file"
+    dmesg >> "$log_file"
     exit 1
 }
 
