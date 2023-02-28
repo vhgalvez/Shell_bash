@@ -23,7 +23,7 @@ handle_error() {
 # Función para actualizar paquetes con registro de errores
 update_packages() {
     apt-get update && apt-get upgrade -y || handle_error "No se pudieron actualizar los paquetes"
-    echo "Paquetes actualizados correctamente"
+    echo "Paquetes actualizados correctamente $(date)" >> "$log_file"
 }
 
 # Función principal
