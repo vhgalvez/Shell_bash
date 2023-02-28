@@ -27,3 +27,6 @@ Las contribuciones a este proyecto son bienvenidas. Si deseas hacer una contribu
 ## Licencia
 Este proyecto está bajo la Licencia MIT. Ver el archivo LICENSE para más detalles.
 
+
+[Tutorial Completo con tarea Cron](https://github.com/vhgalvez/Shell_bash/blob/main/Tutorial_Actualizar_paquetes._tarea%20cron.md)
+

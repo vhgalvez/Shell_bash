@@ -59,7 +59,7 @@ Este script actualiza los paquetes del sistema operativo y registra cualquier er
 - Dale permisos de ejecución al archivo de script con el siguiente comando:
 
 ```Bash
-chmod +x update_pack.sh
+chmod +x update_packages.sh
 ```
 
 
@@ -76,9 +76,9 @@ Si es la primera vez que usas crontab, se te pedirá que elijas un editor de tex
 Una vez que estés en el editor de tareas cron, añade la siguiente línea al final del archivo:
 
 ```Bash
-0 0 * * * /ruta/al/script/update_pack.sh
+0 0 * * * /ruta/al/script/update_packages.sh
 ```
 
-Esta línea indica que la tarea se ejecutará a las 12:00 a.m. (medianoche) todos los días (0 0 * * *). La ruta /ruta/al/script/ debe ser reemplazada por la ruta completa donde se encuentra el script update_pack.sh.
+Esta línea indica que la tarea se ejecutará a las 12:00 a.m. (medianoche) todos los días (0 0 * * *). La ruta /ruta/al/script/ debe ser reemplazada por la ruta completa donde se encuentra el script update_packages.sh.
 
 Guarda el archivo y cierra el editor de tareas cron.
