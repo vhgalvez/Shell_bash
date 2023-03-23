@@ -18,19 +18,15 @@ Esta función se encarga de manejar los errores que pueden ocurrir durante la ac
 ## update_packages()
 Esta función se encarga de actualizar los paquetes del sistema operativo utilizando los comandos "apt-get update" y "apt-get upgrade". Si la actualización es exitosa, registra la fecha y hora en un archivo de registro.
 
-This is a command commonly used in Debian-based Linux distributions, such as Ubuntu, to update and upgrade the system packages and their dependencies.
+Este es un comando comúnmente utilizado en las distribuciones de Linux basadas en Debian, como Ubuntu, para actualizar los paquetes del sistema y sus dependencias.
 
-The "apt-get update" command updates the package lists from the repositories and retrieves information on the newest versions of packages and their dependencies. This ensures that your system has the latest information about available packages.
+El comando "apt-get update" actualiza las listas de paquetes de los repositorios y recupera información sobre las versiones más recientes de los paquetes y sus dependencias. Esto asegura que su sistema tenga la información más reciente sobre los paquetes disponibles.
 
-The "apt-get upgrade" command installs the newest versions of packages already installed on your system. The "-y" option automatically answers "yes" to any prompts that may appear during the upgrade process.
+El comando "apt-get upgrade" instala las versiones más recientes de los paquetes ya instalados en su sistema. La opción "-y" responde automáticamente "sí" a cualquier mensaje que pueda aparecer durante el proceso de actualización.
 
-By combining these two commands with "&&" operator, you can ensure that your system is up-to-date and all security patches and bug fixes have been applied.
+Al combinar estos dos comandos con el operador "&&", puede asegurarse de que su sistema esté actualizado y que se hayan aplicado todos los parches de seguridad y correcciones de errores.
 
-It is recommended to run this command periodically to keep your system up-to-date and secure. However, it is always a good practice to backup your important files before performing any system updates.
-
-la ejecución regular del comando "apt-get update && apt-get upgrade" puede mejorar la seguridad de su servidor. Esto se debe a que el comando actualiza los paquetes y sus dependencias a las versiones más recientes, lo que incluye parches de seguridad y correcciones de errores.
-
-Cuando se descubren vulnerabilidades en el software, los desarrolladores y proveedores de paquetes suelen publicar actualizaciones para corregirlas. Al ejecutar regularmente el comando "apt-get update && apt-get upgrade", usted puede asegurarse de que su servidor tenga la versión más reciente de los paquetes instalados, incluyendo las actualizaciones de seguridad.
+Se recomienda ejecutar este comando periódicamente para mantener su sistema actualizado y seguro. Sin embargo, siempre es una buena práctica hacer una copia de seguridad de sus archivos importantes antes de realizar cualquier actualización del sistema.
 
 ## Configuración
 El script utiliza la opción -e para finalizar el script si un comando falla y -o nounset para finalizar el script si se usa una variable no declarada. Estas opciones pueden ser desactivadas si se desea. Además, el archivo de registro de errores se puede configurar cambiando la variable log_file.
