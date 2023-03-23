@@ -18,6 +18,9 @@ Esta función se encarga de manejar los errores que pueden ocurrir durante la ac
 ## update_packages()
 Esta función se encarga de actualizar los paquetes del sistema operativo utilizando los comandos "apt-get update" y "apt-get upgrade". Si la actualización es exitosa, registra la fecha y hora en un archivo de registro.
 
+```Bash
+sudo apt-get update && sudo apt-get upgrade -y
+```
 Este es un comando comúnmente utilizado en las distribuciones de Linux basadas en Debian, como Ubuntu, para actualizar los paquetes del sistema y sus dependencias.
 
 El comando "apt-get update" actualiza las listas de paquetes de los repositorios y recupera información sobre las versiones más recientes de los paquetes y sus dependencias. Esto asegura que su sistema tenga la información más reciente sobre los paquetes disponibles.

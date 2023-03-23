@@ -36,7 +36,7 @@ handle_error() {
 
 # Función para actualizar paquetes con registro de errores
 update_packages() {
-    apt-get update && apt-get upgrade -y || handle_error "No se pudieron actualizar los paquetes"
+    sudo apt-get update && sudo apt-get upgrade -y || handle_error "No se pudieron actualizar los paquetes"
     echo "Paquetes actualizados correctamente $(date)" >> "$log_file"
 }
 
@@ -54,7 +54,10 @@ main
 
 Este script actualiza los paquetes del sistema operativo y registra cualquier error en un archivo de registro, Guarda el archivo de script y sal del editor de texto.
 
-
+Tambien hacerlo con con git
+```Bash
+git clone https://github.com/vhgalvez/Shell_bash.git
+```
 
 - Dale permisos de ejecución al archivo de script con el siguiente comando:
 
