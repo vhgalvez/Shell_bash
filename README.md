@@ -28,5 +28,15 @@ Las contribuciones a este proyecto son bienvenidas. Si deseas hacer una contribu
 Este proyecto está bajo la Licencia MIT. Ver el archivo LICENSE para más detalles.
 
 
+This is a command commonly used in Debian-based Linux distributions, such as Ubuntu, to update and upgrade the system packages and their dependencies.
+
+The "apt-get update" command updates the package lists from the repositories and retrieves information on the newest versions of packages and their dependencies. This ensures that your system has the latest information about available packages.
+
+The "apt-get upgrade" command installs the newest versions of packages already installed on your system. The "-y" option automatically answers "yes" to any prompts that may appear during the upgrade process.
+
+By combining these two commands with "&&" operator, you can ensure that your system is up-to-date and all security patches and bug fixes have been applied.
+
+It is recommended to run this command periodically to keep your system up-to-date and secure. However, it is always a good practice to backup your important files before performing any system updates.
+
 [Tutorial Completo con tarea Cron](https://github.com/vhgalvez/Shell_bash/blob/main/Tutorial_Actualizar_paquetes._tarea%20cron.md)
 
