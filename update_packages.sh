@@ -6,11 +6,9 @@
 set -e
 set -o errexit  # Finaliza el script si un comando falla
 set -o nounset  # Finaliza el script si se usa una variable no declarada
-# set -o xtrace # Si quieres depurar
 
 # Definimos variables
-# Nombre del archivo de registro de errores
-log_file="report_update_pack.log"
+log_file="/var/log/update_pack.log"
 
 # Función para manejar errores
 handle_error() {
@@ -20,18 +18,41 @@ handle_error() {
     exit 1
 }
 
-# Función para actualizar paquetes con registro de errores
+# Función para verificar actualizaciones disponibles
+check_updates() {
+    updates=$(apt-get -s upgrade | grep -P "^(\d+ upgraded, \d+ newly installed, \d+ to remove and \d+ not upgraded.)$")
+    if [[ $updates ]]; then
+        echo "Actualizaciones disponibles:"
+        echo "$updates"
+        return 0
+    else
+        echo "No hay actualizaciones disponibles."
+        return 1
+    fi
+}
+
+# Función para actualizar paquetes
 update_packages() {
-    sudo apt-get update && sudo apt-get upgrade -y >> "$log_file"|| handle_error "No se pudieron actualizar los paquetes"
+    apt-get update >> "$log_file" || handle_error "No se pudo actualizar la lista de paquetes"
+    if [[ $1 == "all" ]]; then
+        apt-get upgrade -y >> "$log_file" || handle_error "No se pudieron actualizar los paquetes"
+    elif [[ $1 == "security" ]]; then
+        apt-get upgrade -y --only-upgrade $(apt list --upgradable | grep -i security | cut -d '/' -f 1) >> "$log_file" || handle_error "No se pudieron actualizar los paquetes de seguridad"
+    fi
     echo "Paquetes actualizados correctamente $(date)" >> "$log_file"
 }
 
 # Función principal
 main() {
-    update_packages
-    echo "Listo"
+    if check_updates; then
+        echo "¿Desea actualizar todos los paquetes o solo los de seguridad? [all/security]"
+        read -r update_choice
+        update_packages "$update_choice"
+        echo "Proceso de actualización completado."
+    else
+        echo "No se requiere actualización."
+    fi
 }
 
 # Ejecutamos la función principal
 main
-
