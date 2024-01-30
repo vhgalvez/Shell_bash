@@ -34,20 +34,14 @@ check_updates() {
 # Función para actualizar paquetes
 update_packages() {
     apt-get update >> "$log_file" || handle_error "No se pudo actualizar la lista de paquetes"
-    if [[ $1 == "all" ]]; then
-        apt-get upgrade -y >> "$log_file" || handle_error "No se pudieron actualizar los paquetes"
-    elif [[ $1 == "security" ]]; then
-        apt-get upgrade -y --only-upgrade $(apt list --upgradable | grep -i security | cut -d '/' -f 1) >> "$log_file" || handle_error "No se pudieron actualizar los paquetes de seguridad"
-    fi
+    apt-get upgrade -y >> "$log_file" || handle_error "No se pudieron actualizar los paquetes"
     echo "Paquetes actualizados correctamente $(date)" >> "$log_file"
 }
 
 # Función principal
 main() {
     if check_updates; then
-        echo "¿Desea actualizar todos los paquetes o solo los de seguridad? [all/security]"
-        read -r update_choice
-        update_packages "$update_choice"
+        update_packages
         echo "Proceso de actualización completado."
     else
         echo "No se requiere actualización."
@@ -56,3 +50,6 @@ main() {
 
 # Ejecutamos la función principal
 main
+
+# Finalizamos el script
+exit 0
