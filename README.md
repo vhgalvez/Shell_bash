@@ -1,45 +1,67 @@
-# Script de actualización de paquetes del sistema operativo
+# Operating System Package Update Script
 
-Este es un script de bash diseñado para actualizar los paquetes del sistema operativo. El script utiliza el comando "apt-get" en sistemas operativos basados en Debian para actualizar los paquetes y registra cualquier error en un archivo de registro.
+This is a Bash script designed to update operating system packages. The script uses the `apt-get` command on Debian-based operating systems to update packages and logs any errors in a log file.
 
-## Uso
-Para usar este script, descarga el archivo update_packages.sh y ejecútalo en una terminal usando el siguiente comando:
+## Usage
 
-```Bash
+To use this script, download the `update_packages.sh` file and execute it in a terminal using the following command:
+
+```bash
+bash [update_packages.sh](http://_vscodecontentref_/0)
+```
+
+```markdown
+# Operating System Package Update Script
+
+This is a Bash script designed to update operating system packages. The script uses the `apt-get` command on Debian-based operating systems to update packages and logs any errors in a log file.
+
+## Usage
+
+To use this script, download the `update_packages.sh` file and execute it in a terminal using the following command:
+
+```bash
 bash update_packages.sh
 ```
 
-## Funciones
-El script contiene dos funciones principales:
+## Functions
 
-## handle_error()
-Esta función se encarga de manejar los errores que pueden ocurrir durante la actualización de los paquetes. Si un comando falla, la función registra el error en un archivo de registro y finaliza el script.
+The script contains two main functions:
 
-## update_packages()
-Esta función se encarga de actualizar los paquetes del sistema operativo utilizando los comandos "apt-get update" y "apt-get upgrade". Si la actualización es exitosa, registra la fecha y hora en un archivo de registro.
+### handle_error()
 
-```Bash
+This function handles any errors that may occur during the package update process. If a command fails, it logs the error in a file and terminates the script.
+
+### update_packages()
+
+This function updates the system packages using the following commands:
+
+```bash
 sudo apt-get update && sudo apt-get upgrade -y
 ```
-Este es un comando comúnmente utilizado en las distribuciones de Linux basadas en Debian, como Ubuntu, para actualizar los paquetes del sistema y sus dependencias.
 
-El comando "apt-get update" actualiza las listas de paquetes de los repositorios y recupera información sobre las versiones más recientes de los paquetes y sus dependencias. Esto asegura que su sistema tenga la información más reciente sobre los paquetes disponibles.
+If the update is successful, it logs the date and time of the update.
 
-El comando "apt-get upgrade" instala las versiones más recientes de los paquetes ya instalados en su sistema. La opción "-y" responde automáticamente "sí" a cualquier mensaje que pueda aparecer durante el proceso de actualización.
+This is a commonly used command in Debian-based Linux distributions, such as Ubuntu, to update system packages and their dependencies.
 
-Al combinar estos dos comandos con el operador "&&", puede asegurarse de que su sistema esté actualizado y que se hayan aplicado todos los parches de seguridad y correcciones de errores.
+The `apt-get update` command updates the package lists from repositories and retrieves information about the latest available versions of packages and their dependencies. This ensures that your system has the most up-to-date package information.
 
-Se recomienda ejecutar este comando periódicamente para mantener su sistema actualizado y seguro. Sin embargo, siempre es una buena práctica hacer una copia de seguridad de sus archivos importantes antes de realizar cualquier actualización del sistema.
+The `apt-get upgrade` command installs the latest versions of already installed packages on your system. The `-y` option automatically answers "yes" to any prompts that may appear during the update process.
 
-## Configuración
-El script utiliza la opción -e para finalizar el script si un comando falla y -o nounset para finalizar el script si se usa una variable no declarada. Estas opciones pueden ser desactivadas si se desea. Además, el archivo de registro de errores se puede configurar cambiando la variable log_file.
+By combining these two commands with the `&&` operator, you can ensure that your system is updated and that all security patches and bug fixes have been applied.
 
-## Contribuciones
-Las contribuciones a este proyecto son bienvenidas. Si deseas hacer una contribución, por favor envía un pull request.
+It is recommended to run this command periodically to keep your system updated and secure. However, it is always a good practice to back up your important files before performing any system updates.
 
-## Licencia
-Este proyecto está bajo la Licencia MIT. Ver el archivo LICENSE para más detalles.
+## Configuration
 
+The script uses the `-e` option to terminate the script if a command fails and the `-o nounset` option to terminate the script if an undeclared variable is used. These options can be disabled if desired. Additionally, the error log file can be configured by changing the `log_file` variable.
+
+## Contributing
+
+Contributions to this project are welcome. If you want to contribute, please submit a pull request.
+
+## License
+
+This project is licensed under the MIT License. See the LICENSE file for more details.
 
 [Tutorial Completo con tarea Cron](https://github.com/vhgalvez/Shell_bash/blob/main/Tutorial_Actualizar_paquetes._tarea%20cron.md)
-
+```
