@@ -1,87 +1,123 @@
-# Actualizar paquetes en Debian 11 con un script automatizado y una tarea cron:
+# Update Packages on Debian 11 with an Automated Script and a Cron Job:
 
-- ## Paso 1: Crear el script de actualización de paquetes
+## Step 1: Create the Package Update Script
 
-Crea un nuevo archivo de texto en tu editor de elección (p. ej., Nano o Vim) con el siguiente comando:
+Create a new text file in your editor of choice (e.g., Nano or Vim) with the following command:
 
-
-```Bash
+```bash
 nano update_pack.sh
 ```
 
-Copia y pega el siguiente código en el archivo de script:
+Copy and paste the following code into the script file:
 
-```Bash
+
+```markdown
+# Update Packages on Debian 11 with an Automated Script and a Cron Job:
+
+## Step 1: Create the Package Update Script
+
+Create a new text file in your editor of choice (e.g., Nano or Vim) with the following command:
+
+```bash
+nano update_pack.sh
+```
+
+Copy and paste the following code into the script file:
+
+```bash
 #!/bin/bash
 
-# Script para actualizar los paquetes del sistema operativo
+# Script to update the operating system packages
 
-# Configuramos opciones de salida para el script
+# Configure script exit options
 set -e
-set -o errexit  # Finaliza el script si un comando falla
-set -o nounset  # Finaliza el script si se usa una variable no declarada
-# set -o xtrace # Si quieres depurar
+set -o errexit  # Exit the script if a command fails
+set -o nounset  # Exit the script if an undeclared variable is used
 
-# Definimos variables
-# Nombre del archivo de registro de errores
-log_file="/var/log/update_pack.log"
+# Define variables
+LOG_FILE="/var/log/update_pack.log"
 
-# Función para manejar errores
+# Function to handle errors
 handle_error() {
-    echo "$(date) - Error: $1 falló" >&2
-    echo "$(date) - Error: $1 falló" >> "$log_file"
-    dmesg >> "$log_file"
+    echo "$(date '+%Y-%m-%d %H:%M:%S') - Error: $1 failed" | tee -a "$LOG_FILE"
+    dmesg >> "$LOG_FILE"
     exit 1
 }
 
-# Función para actualizar paquetes con registro de errores
+# Function to check for available updates
+check_updates() {
+    local updates
+    updates=$(apt-get -s upgrade | awk '/^[0-9]+ upgraded, [0-9]+ newly installed, [0-9]+ to remove and [0-9]+ not upgraded\./')
+
+    if [[ -n "$updates" ]]; then
+        echo "$(date '+%Y-%m-%d %H:%M:%S') - Updates available:" | tee -a "$LOG_FILE"
+        echo "$updates" | tee -a "$LOG_FILE"
+        return 0
+    else
+        echo "$(date '+%Y-%m-%d %H:%M:%S') - No updates available." | tee -a "$LOG_FILE"
+        return 1
+    fi
+}
+
+# Function to update packages
 update_packages() {
-    sudo apt-get update && sudo apt-get upgrade -y || handle_error "No se pudieron actualizar los paquetes"
-    echo "Paquetes actualizados correctamente $(date)" >> "$log_file"
+    echo "$(date '+%Y-%m-%d %H:%M:%S') - Starting package update..." | tee -a "$LOG_FILE"
+
+    apt-get update >> "$LOG_FILE" 2>&1 || handle_error "Failed to update package list"
+    apt-get upgrade -y >> "$LOG_FILE" 2>&1 || handle_error "Failed to upgrade packages"
+
+    echo "$(date '+%Y-%m-%d %H:%M:%S') - Packages updated successfully." | tee -a "$LOG_FILE"
 }
 
-# Función principal
+# Main function
 main() {
-    update_packages
-    echo "Listo"
+    if check_updates; then
+        update_packages
+        echo "$(date '+%Y-%m-%d %H:%M:%S') - Update process completed." | tee -a "$LOG_FILE"
+    else
+        echo "$(date '+%Y-%m-%d %H:%M:%S') - No update required." | tee -a "$LOG_FILE"
+    fi
 }
 
-# Ejecutamos la función principal
+# Execute the main function
 main
+
+# End the script
+exit 0
+
 ```
 
+This script updates the operating system packages and logs any errors in a log file. Save the script file and exit the text editor.
 
+Alternatively, you can do it with git:
 
-Este script actualiza los paquetes del sistema operativo y registra cualquier error en un archivo de registro, Guarda el archivo de script y sal del editor de texto.
-
-Tambien hacerlo con con git
-```Bash
+```bash
 git clone https://github.com/vhgalvez/Shell_bash.git
 ```
 
-- Dale permisos de ejecución al archivo de script con el siguiente comando:
+- Give execution permissions to the script file with the following command:
 
-```Bash
+```bash
 chmod +x update_packages.sh
 ```
 
+## Step 2: Cron Jobs
 
-## Paso 2: Tareas cron
+Run the command `crontab -e` to open the cron job editor.
 
-Ejecuta el comando crontab -e para abrir el editor de tareas cron.
-
-```Bash
+```bash
 crontab -e
 ```
 
-Si es la primera vez que usas crontab, se te pedirá que elijas un editor de texto. Selecciona el editor que prefieras.
+If this is your first time using crontab, you will be asked to choose a text editor. Select the editor you prefer.
 
-Una vez que estés en el editor de tareas cron, añade la siguiente línea al final del archivo:
+Once you are in the cron job editor, add the following line at the end of the file:
 
-```Bash
-0 0 * * * /ruta/al/script/update_packages.sh
+```bash
+0 0 * * * /path/to/script/update_packages.sh
 ```
 
-Esta línea indica que la tarea se ejecutará a las 12:00 a.m. (medianoche) todos los días (0 0 * * *). La ruta /ruta/al/script/ debe ser reemplazada por la ruta completa donde se encuentra el script update_packages.sh.
+This line indicates that the task will run at 12:00 a.m. (midnight) every day (0 0 * * *). The path `/path/to/script/` should be replaced with the full path where the `update_packages.sh` script is located.
 
-Guarda el archivo y cierra el editor de tareas cron.
+Save the file and close the cron job editor.
+```
